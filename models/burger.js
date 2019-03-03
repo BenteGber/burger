@@ -23,8 +23,3 @@ var burger = {
 module.exports = burger
 // TODO ???
 // This is where code happens
-log(
-    burger.getAll(log),
-    burger.addNew({ burger_name: 'Impossible', devoured: true }, log),
-    burger.devour('devoured', 'id = 3', log)
-)
