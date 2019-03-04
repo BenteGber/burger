@@ -1,5 +1,4 @@
 var express = require("express");
-
 var exphbs = require("express-handlebars");
 
 var app = express();
@@ -15,16 +14,8 @@ app.set("view engine", "handlebars");
 
 app.use(express.static(__dirname + "/public"))
 
-
-app.get("/", (req, res) => {
-
-    res.render("index", { title: 'Friend Finder' });
-
-});
-
-
-
-
+var routes = require("./controllers/burgers_controller")
+app.use(routes)
 
 
 app.listen(PORT, () => {

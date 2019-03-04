@@ -7,7 +7,7 @@ var orm = {
         let queryString = `select * from ${tableInput};`;
         connection.query(queryString, (err, result) => {
             if (err) throw err
-            log(result)
+
             cb(result)
         })
     },
@@ -15,17 +15,17 @@ var orm = {
         let queryString = `insert into ${table} set ?;`;
         connection.query(queryString, colValObj, (err, result) => {
             if (err) throw err
-            log(result)
+
             cb(result)
         })
     },
 
     updateOne: (table, fields, values, condition, cb) => {
-        // TODO: confirm querystring needs ";"
+
         let queryString = `update ${table} set ${fields} = ${values} where ${condition};`
         connection.query(queryString, (err, result) => {
             if (err) throw err
-            log(result)
+
             cb(result)
         })
     }

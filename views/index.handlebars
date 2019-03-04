@@ -1,2 +1,40 @@
-<h1>{{titiel}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="container">
+    <div class="row">
+        <h1>{{title}}</h1>
+        <p>Welcome to {{title}}</p>
+    </div>
+    <div class="row">
+        <div class="column one-third">
+            <ul>
+                {{#each burgers}}
+                <li>
+
+                    {{this.burger_name}}
+
+                </li>
+                {{/each}}
+
+            </ul>
+        </div>
+        <div class="column one-third">
+            <form action="/post" method="POST">
+                <input type="text" name="burger_name">
+                <input class="button-primary" type="submit" value="Submit">
+            </form>
+
+
+        </div>
+        <div class="column one-third">
+            <ul>
+                {{#each burgers}}
+                <li>
+
+                </li>
+                {{/each}}
+
+
+            </ul>
+        </div>
+    </div>
+
+</div>
