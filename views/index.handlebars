@@ -5,31 +5,43 @@
     </div>
     <div class="row">
         <div class="column one-third">
+            <h3>Burgers You Want To Eat</h3>
             <ul>
                 {{#each burgers}}
+                {{#if this.burger_name}}
+                {{#unless this.devoured}}
                 <li>
-
                     {{this.burger_name}}
-
                 </li>
+                <button class="button" type="button" value="PUT" id="{{this.id}}" value="PUT" path="/post">EAT
+                    ME!</button>
+                {{/unless}}
+                {{/if}}
                 {{/each}}
 
             </ul>
         </div>
         <div class="column one-third">
-            <form action="/post" method="POST">
-                <input type="text" name="burger_name">
-                <input class="button-primary" type="submit" value="Submit">
+            <form id="addBurger">
+                <label>Add a new burger</label>
+                <input type="text" name="burger_name" />
+                <input class="button-primary" type="submit" value="Submit" />
             </form>
 
 
         </div>
         <div class="column one-third">
+            <h3>Burgers You've already Eaten</h3>
             <ul>
                 {{#each burgers}}
+                {{#if this.burger_name}}
+                {{#if this.devoured}}
                 <li>
-
+                    {{this.burger_name}}
                 </li>
+                <button class="button" type="button" value="DELETE" id="{{this.id}}" value="DELETE" path="/delete">DELETE ME!</button>
+                {{/if}}
+                {{/if}}
                 {{/each}}
 
 
@@ -38,3 +50,34 @@
     </div>
 
 </div>
+<script>
+    $('#addBurger').on('submit', (event) => {
+        event.preventDefault();
+        const burger_name = event.target[0].value
+         $.ajax({
+            url: `/post/${burger_name}`,
+            type: 'POST',
+        })
+            .done(() => location.reload())
+            .fail(err => console.log("Error:", err));
+    })
+
+
+
+    $('.button').on('click', (event) => {
+        const id = event.target.id
+        const method = event.target.value
+        const path = event.target.attributes.item(4).value
+        console.log(path)
+        event.preventDefault()
+        $.ajax({
+            url: `${path}/${id}`,
+            type: method,
+            data: id
+        })
+            .done(() => location.reload())
+            .fail(err => console.log("Error:", err));
+
+    })
+
+</script>

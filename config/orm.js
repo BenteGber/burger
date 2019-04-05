@@ -1,34 +1,38 @@
-var connection = require('./connection')
-const log = console.log
+var connection = require("./connection");
+const log = console.log;
 
 var orm = {
-    // TODO: define parameters 
-    selectAll: (tableInput, cb) => {
-        let queryString = `select * from ${tableInput};`;
-        connection.query(queryString, (err, result) => {
-            if (err) throw err
+  // TODO: define parameters
+  selectAll: (tableInput, cb) => {
+    let queryString = `select * from ${tableInput};`;
+    connection.query(queryString, (err, result) => {
+      if (err) throw err;
 
-            cb(result)
-        })
-    },
-    insertOne: (table, colValObj, cb) => {
-        let queryString = `insert into ${table} set ?;`;
-        connection.query(queryString, colValObj, (err, result) => {
-            if (err) throw err
+      cb(result);
+    });
+  },
+  insertOne: (table, colValObj, cb) => {
+    let queryString = `insert into ${table} set ?;`;
+    connection.query(queryString, colValObj, (err, result) => {
+      if (err) throw err;
 
-            cb(result)
-        })
-    },
+      cb(result);
+    });
+  },
 
-    updateOne: (table, fields, values, condition, cb) => {
+  updateOne: (table, fields, values, condition, cb) => {
+    let queryString = `update ${table} set ${fields} = ${values} where ${condition};`;
+    connection.query(queryString, (err, result) => {
+      if (err) throw err;
 
-        let queryString = `update ${table} set ${fields} = ${values} where ${condition};`
-        connection.query(queryString, (err, result) => {
-            if (err) throw err
+      cb(result);
+    });
+  },
+  deleteOne: (id,cb) =>
+  {connection.query(`delete from burgers where id = ${id}`,  (err, result) => {
+    if (err) throw err;
+   cb(result)
+  })}
+};
 
-            cb(result)
-        })
-    }
-}
-
-module.exports = orm
+module.exports = orm;

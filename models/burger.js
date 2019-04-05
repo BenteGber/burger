@@ -1,25 +1,27 @@
-const orm = require('../config/orm')
-const log = console.log
-
+const orm = require("../config/orm");
+const log = console.log;
 
 var burger = {
-    getAll: (cb) => {
-        orm.selectAll('burgers', (res) =>
-            cb(res))
+  getAll: cb => {
+    orm.selectAll("burgers", res => cb(res));
+  },
+  addNew: (vals, cb) => {
+    orm.insertOne("burgers", vals, res => {
+      cb(res);
+    });
+  },
+  devour: (fields, condition, cb) => {
+    orm.updateOne("burgers", fields, true, condition, res => {
+      cb(res);
+    });
+  },
+  delete: (id , cb) => {
+    orm.deleteOne(id, res => {
+      cb(res)
+    })
+  }
+};
 
-    },
-    addNew: (vals, cb) => {
-        orm.insertOne('burgers', vals, (res) => {
-            cb(res)
-        })
-    },
-    devour: (fields, condition, cb) => {
-        orm.updateOne('burgers', fields, true, condition, (res) => {
-            cb(res)
-        })
-    }
-}
-
-module.exports = burger
+module.exports = burger;
 // TODO ???
 // This is where code happens
